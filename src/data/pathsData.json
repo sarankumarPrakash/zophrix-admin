@@ -1,0 +1,100 @@
+{
+  "paths": [
+    {
+      "id": "mern",
+      "title": "Full-Stack Developer (MERN)",
+      "level": "Medium",
+      "sections": 320,
+      "xp": 280,
+      "days": 90,
+      "cost": 1490,
+      "desc": "Learn MongoDB, Express, React, and Node.js end-to-end. Build real-world applications, understand backend APIs, authentication, database modeling, React state management, deployment, and modern full-stack architecture practices.",
+      "image": "mern",
+
+      "modules": [
+        {
+          "title": "Web Requests",
+          "status": "Completed",
+          "sections": 8,
+          "xp": 10,
+          "desc": "Learn how HTTP requests work and how applications communicate with backends."
+        },
+        {
+          "title": "Introduction to Web Applications",
+          "status": "Completed",
+          "sections": 17,
+          "xp": 10,
+          "desc": "Learn how web applications work from a security and full-stack perspective."
+        },
+        {
+          "title": "Using Web Proxies",
+          "status": "Pending",
+          "sections": 15,
+          "xp": 20,
+          "desc": "Learn Burp Suite and OWASP ZAP for inspecting web requests."
+        }
+      ]
+    },
+
+    {
+      "id": "mean",
+      "title": "Full-Stack Developer (MEAN)",
+      "level": "Medium",
+      "sections": 350,
+      "xp": 300,
+      "days": 90,
+      "cost": 1590,
+      "desc": "Master Angular, Express, Node.js, MongoDB, and scalable frontend architecture.",
+      "image": "mean",
+      "modules": []
+    },
+
+    {
+      "id": "python",
+      "title": "Python Full-Stack Developer",
+      "level": "Easy",
+      "sections": 280,
+      "xp": 250,
+      "days": 90,
+      "cost": 1290,
+      "desc": "Learn Django/Flask, ORM, REST APIs, authentication, HTML templating, and deployment.",
+      "image": "python",
+
+      "modules": [
+        {
+          "title": "Django Basics",
+          "status": "Pending",
+          "sections": 12,
+          "xp": 15,
+          "desc": "Learn models, views, templates, and routing inside Django."
+        }
+      ]
+    },
+
+    {
+      "id": "java",
+      "title": "Java Full-Stack Developer",
+      "level": "Hard",
+      "sections": 420,
+      "xp": 380,
+      "days": 90,
+      "cost": 1790,
+      "desc": "Learn Spring Boot, Microservices, Hibernate, SQL, APIs, and frontend frameworks.",
+      "image": "java",
+      "modules": []
+    },
+
+    {
+      "id": "devops",
+      "title": "DevOps Engineer",
+      "level": "Hard",
+      "sections": 500,
+      "xp": 420,
+      "days": 90,
+      "cost": 1990,
+      "desc": "Master CI/CD, Docker, Kubernetes, Jenkins, AWS, Terraform, and Linux automation.",
+      "image": "devops",
+      "modules": []
+    }
+  ]
+}
