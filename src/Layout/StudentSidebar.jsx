@@ -1,105 +1,54 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import {
   Code2,
   LayoutDashboard,
-  Trophy,
-  GitPullRequest,
-  Zap,
-  Settings,
-  LogOut,
+  Users,
   FlaskConical,
+  GitPullRequest,
+  Trophy,
+  Zap,
 } from "lucide-react";
-import { NavLink as RouterNavLink, useLocation } from "react-router-dom";
 
 const navItems = [
-  { icon: LayoutDashboard, label: "Dashboard", to: "/hub" },
-  { icon: FlaskConical, label: "Challenges", to: "/challenges" },
-  { icon: GitPullRequest, label: "Submissions", to: "/submissions" },
-  { icon: Trophy, label: "Verified Skills", to: "/Skillbadges" },
-  { icon: Zap, label: "Hackathons", to: "/hackathons", badge: "Soon" },
-];
-
-const bottomItems = [
-  { icon: Settings, label: "Settings" },
-  { icon: LogOut, label: "Logout" },
+  { icon: LayoutDashboard, to: "/hub" },
+  { icon: Users, to: "/students" },
+  { icon: FlaskConical, to: "/challenges" },
+  { icon: GitPullRequest, to: "/submissions" },
+  { icon: Trophy, to: "/skillbadges" },
+  { icon: Zap, to: "/hackathons" },
 ];
 
 const StudentSidebar = () => {
-  const location = useLocation();
-
   return (
-    <aside className="fixed left-0 top-0 z-30 flex h-screen w-16 flex-col border-r border-[#393434] bg-theme lg:w-56">
-      
-      {/* Logo */}
-      <div className="flex h-14 items-center gap-2.5 border-b border-[#393434] px-4">
-        <Code2 className="h-6 w-6 text-green-400 shrink-0" />
-        <span className="hidden font-mono text-sm font-bold text-white lg:block tracking-wider">
-          ZOPHRIX
-        </span>
+    <aside className="fixed left-0 top-0 z-40 h-screen w-16 border-r border-[#1A2233] bg-[#070D1A]">
+      {/* Top logo */}
+      <div className="flex h-14 items-center justify-center border-b border-[#1A2233]">
+        <Code2 className="h-5 w-5 text-[#22C55E]" strokeWidth={2.2} />
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 px-2 py-4 space-y-1">
-        {navItems.map((item) => {
-          const isActive =
-            item.to === "/"
-              ? location.pathname === "/"
-              : location.pathname.startsWith(item.to);
+      {/* Icon nav */}
+      <nav className="flex flex-col items-center gap-4 py-6">
+        {navItems.map((item, index) => {
+          const Icon = item.icon;
 
           return (
-            <RouterNavLink
-              key={item.label}
+            <NavLink
+              key={index}
               to={item.to}
-              className={`flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors
-              ${
-                isActive
-                  ? "bg-gradient-to-r from-green-900/40 to-green-700/30 text-green-400 font-semibold"
-                  : "text-slate-400 hover:bg-text-theme hover:text-white"
-              }`}
+              className={({ isActive }) =>
+                `flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-200 ${
+                  isActive
+                    ? "bg-[#12361F] text-[#22C55E]"
+                    : "text-[#98A2B3] hover:bg-[#0E1626] hover:text-white"
+                }`
+              }
             >
-              <item.icon className="h-4 w-4 shrink-0" />
-              <span className="hidden lg:block">{item.label}</span>
-
-              {item.badge && (
-                <span className="ml-auto hidden rounded-full bg-amber-500/20 px-2 py-0.5 text-[10px] font-medium text-amber-400 lg:block">
-                  {item.badge}
-                </span>
-              )}
-            </RouterNavLink>
+              <Icon className="h-[18px] w-[18px]" strokeWidth={2} />
+            </NavLink>
           );
         })}
       </nav>
-
-      {/* Bottom Buttons */}
-      <div className="border-t border-[#393434] px-2 py-3 space-y-1">
-        {bottomItems.map((item) => (
-          <button
-            key={item.label}
-            className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-400 hover:bg-[#04121f] hover:text-white transition-colors"
-          >
-            <item.icon className="h-4 w-4 shrink-0" />
-            <span className="hidden lg:block">{item.label}</span>
-          </button>
-        ))}
-      </div>
-
-      {/* User */}
-      <div className="border-t border-[#393434] p-3">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-green-500/20 text-xs font-bold text-green-400 font-mono">
-            AK
-          </div>
-
-          <div className="hidden lg:block min-w-0">
-            <p className="text-xs font-medium text-white truncate">
-              Arjun Kumar
-            </p>
-            <p className="text-[10px] text-slate-400 truncate">
-              arjun@zophrix.dev
-            </p>
-          </div>
-        </div>
-      </div>
     </aside>
   );
 };
