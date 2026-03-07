@@ -4,7 +4,7 @@ import { NavLink as RouterNavLink, useLocation } from "react-router-dom";
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", to: "/hub" },
-  { icon: BookUser, label: "Studnets", to: "/challenges" },
+  { icon: BookUser, label: "Students", to: "/students" },
   { icon: GitPullRequest, label: "Placement pipeline ", to: "/submissions" },
   { icon: MonitorSpeaker, label: "Companies", to: "/Skillbadges" },
   { icon: Paperclip, label: "Report", to: "/hackathons" },

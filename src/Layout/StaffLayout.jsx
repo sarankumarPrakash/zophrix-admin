@@ -1,11 +1,13 @@
 import StaffSidebar from "./StaffSidebar";
+import StudentNavbar from "./StudentNavbar";
 import { Outlet } from "react-router-dom";
 
 export default function StaffLayout() {
   return (
-    <div className="min-h-screen bg-theme  text-violet-100"> 
+    <div className="min-h-screen bg-theme text-violet-100">
 
-      {/* <StaffNavbar /> */}
+      {/* Navbar */}
+      <StudentNavbar />
 
       <div className="flex">
 

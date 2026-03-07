@@ -4,21 +4,17 @@ import { Outlet } from "react-router-dom";
 
 export default function StudentLayout() {
   return (
-    <div className="min-h-screen bg-theme  text-violet-100"> 
-
+    <div className="h-screen overflow-hidden bg-theme text-violet-100">
       <StudentNavbar />
 
-      <div className="flex">
-
+      <div className="flex h-[calc(100vh-64px)]">
         <StudentSidebar />
 
-        <main className="flex-1 p-6 ml-16 lg:ml-56 w-full min-h-screen overflow-auto">
-          {/* ensure page content can expand to the full viewport width */}
+<main className="ml-16 flex-1 min-w-0 overflow-y-auto overflow-x-hidden p-6">
           <div className="w-full max-w-full">
             <Outlet />
           </div>
         </main>
-
       </div>
     </div>
   );

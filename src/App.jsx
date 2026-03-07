@@ -8,6 +8,7 @@ import StudentLayout from "./Layout/StudentLayout";
 import StaffLayout from "./Layout/StaffLayout";
 import PublicLayout from "./Layout/PublicLayout";
 import Contact from "./pages/Contact";
+import Students from "./Components/Pages/Student/Students";
 
 import ProtectedStudentRoute from "./Routes/protectedStudentRoute";
 import ProtectedStaffRoute from "./Routes/ProtectedStaffRoutes";
@@ -33,7 +34,6 @@ import PremiumLayout from "./Layout/PremiumLayout";
 
 // import HackathonPage from "./Components/Students/HackathonCards/HackathonPage";
 
-
 import StaffDashboard from "./Components/Pages/Staff/Dashboard/Dashboard";
 
 // import Premium from "./pages/Premium";
@@ -44,14 +44,12 @@ import StaffDashboard from "./Components/Pages/Staff/Dashboard/Dashboard";
 // import Help from "./Components/Students/Help";
 // import Referral from "./Components/Students/Referral";
 
-
 // ------------------------- New Links -------------------------
 import Index from "./Components/Pages/Student/Dashboard/Index";
 import Challenge from './Components/Pages/Student/Challenges/Challenge';
 import ChallengeDetails from './Components/Pages/Student/Challenges/ChallengeDetails';
 import Submission from "./Components/Pages/Student/Submissions/Subbmission";
 import SkillBadge from "./Components/Pages/Student/SkillBadge/Skillbadge";
-
 
 function App() {
   return (
@@ -66,6 +64,16 @@ function App() {
           <Route path="/contact" element={<Contact />} />
         </Route>
 
+        <Route
+  element={
+    <ProtectedStaffRoute>
+      <StaffLayout />
+    </ProtectedStaffRoute>
+  }
+>
+  <Route path="/hub" element={<StaffDashboard />} />
+  <Route path="/students" element={<Students />} />
+</Route>
 
         {/* STAFF ROUTES */}
         <Route
