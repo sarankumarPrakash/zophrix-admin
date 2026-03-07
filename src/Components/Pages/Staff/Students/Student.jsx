@@ -213,7 +213,7 @@ export default function Students() {
                 filteredStudents.map((student, index) => (
                   <tr
                     key={index}
-                    className="text-sm text-gray-300 hover:bg-[#0f172a]"
+                    className="text-sm text-gray-300 hover:card-theme"
                   >
                     <td className="border-b border-[#182133] px-5 py-5 font-medium text-white">
                       {student.name}
