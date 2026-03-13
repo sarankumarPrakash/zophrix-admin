@@ -5,16 +5,29 @@ import {
   BadgeCheck,
   TrendingUp,
   Building2,
-  IndianRupee,
+  IndianRupee,FileText, FileSpreadsheet, Download 
 } from "lucide-react";
 
+
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  LineChart,
+  Line,
+  Tooltip,
+} from "recharts";
+
 const stats = [
-  { icon: Users, value: "342", title: "Total Students", sub: "All registered", subColor: "#22c55e" },
-  { icon: UserCheck, value: "198", title: "Eligible Students", sub: "Meeting criteria", subColor: "#22c55e" },
-  { icon: BadgeCheck, value: "21", title: "Placed", sub: "6.1% rate", subColor: "#22c55e" },
-  { icon: TrendingUp, value: "6.1%", title: "Placement Rate", sub: "+2.3% vs last year", subColor: "#22c55e" },
-  { icon: Building2, value: "12", title: "Companies Visited", sub: "This semester", subColor: "#22c55e" },
-  { icon: IndianRupee, value: "12 LPA", title: "Highest Package", sub: "Razorpay", subColor: "#22c55e" },
+  { icon: Users, value: "342", title: "Total Students", sub: "All registered" },
+  { icon: UserCheck, value: "198", title: "Eligible Students", sub: "Meeting criteria" },
+  { icon: BadgeCheck, value: "21", title: "Placed", sub: "6.1% rate" },
+  { icon: TrendingUp, value: "6.1%", title: "Placement Rate", sub: "+2.3% vs last year" },
+  { icon: Building2, value: "12", title: "Companies Visited", sub: "This semester" },
+  { icon: IndianRupee, value: "12 LPA", title: "Highest Package", sub: "Razorpay" },
 ];
 
 const departmentData = [
@@ -49,272 +62,163 @@ const skillDemand = [
   { label: "System Design", value: 11, max: 50 },
 ];
 
-const GREEN = "#2ed760";
-const GREEN_DIM = "#20d65b";
-
-const styles = {
-  root: {
-    minHeight: "100vh",
-    width: "100%",
-    background: "#0a1322",
-    color: "#fff",
-    fontFamily: "'DM Sans', 'Segoe UI', sans-serif",
-  },
-
-  body: { padding: "24px" },
-  statsGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(6, 1fr)",
-    gap: 16,
-    marginBottom: 24,
-  },
-  card: {
-    borderRadius: 18,
-    border: "1px solid #182233",
-    background: "#0e1625",
-    overflow: "hidden",
-  },
-  statCard: {
-    height: 132,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
-    padding: "16px 12px",
-  },
-  iconCircle: {
-    width: 36,
-    height: 36,
-    borderRadius: "50%",
-    background: "#131d2c",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 12,
-  },
-  statValue: {
-    fontSize: 24,
-    fontWeight: 700,
-    lineHeight: 1,
-    letterSpacing: "-0.02em",
-    color: "#f3f7fc",
-  },
-  statTitle: { fontSize: 13, fontWeight: 500, color: "#7b879d", marginTop: 8 },
-  statSub: { fontSize: 12, fontWeight: 600, color: "#22c55e", marginTop: 4 },
-  row2: {
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap: 20,
-    marginBottom: 20,
-  },
-  row3: {
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap: 20,
-  },
-  cardPad: { padding: "20px" },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: 600,
-    letterSpacing: "-0.02em",
-    color: "#edf2f8",
-    marginBottom: 0,
-  },
-};
-
-function AnimatedBar({ percent, delay = 0 }) {
+function AnimatedBar({ percent }) {
   const [width, setWidth] = useState(0);
+
   useEffect(() => {
-    const t = setTimeout(() => setWidth(percent), 100 + delay);
-    return () => clearTimeout(t);
-  }, [percent, delay]);
+    setTimeout(() => setWidth(percent), 200);
+  }, [percent]);
+
   return (
-    <div style={{ height: 10, borderRadius: 99, background: "#1a2435", overflow: "hidden", flex: 1 }}>
+    <div className="h-[10px] rounded-full bg-[#1a2435] overflow-hidden flex-1">
       <div
-        style={{
-          height: "100%",
-          borderRadius: 99,
-          background: GREEN,
-          width: `${width}%`,
-          transition: "width 0.7s cubic-bezier(0.4,0,0.2,1)",
-        }}
+        className="h-full bg-[#2ed760] rounded-full transition-all duration-700"
+        style={{ width: `${width}%` }}
       />
     </div>
   );
 }
 
-function ProgressRow({ label, value, max, index }) {
+function ProgressRow({ label, value, max }) {
   const percent = (value / max) * 100;
+
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "120px 1fr 28px", alignItems: "center", gap: 16 }}>
-      <span style={{ fontSize: 15, fontWeight: 500, color: "#f1f5fa" }}>{label}</span>
-      <AnimatedBar percent={percent} delay={index * 80} />
-      <span style={{ textAlign: "right", fontSize: 15, fontWeight: 600, color: "#f4f7fb" }}>{value}</span>
+    <div className="grid grid-cols-[120px_1fr_28px] items-center gap-4">
+      <span className="text-[15px] text-[#f1f5fa]">{label}</span>
+
+      <AnimatedBar percent={percent} />
+
+      <span className="text-right text-[15px] font-semibold text-[#f4f7fb]">
+        {value}
+      </span>
     </div>
   );
 }
 
 function StatCard({ icon: Icon, value, title, sub }) {
   return (
-    <div style={{ ...styles.card, ...styles.statCard }}>
-      <div style={styles.iconCircle}>
-        <Icon size={17} color="#7e8aa2" strokeWidth={1.8} />
+    <div className="rounded-[18px] card-theme h-[132px] flex flex-col items-center justify-center text-center p-4">
+      <div className="w-[36px] h-[36px] rounded-full  flex items-center justify-center mb-3">
+        <Icon size={17} className="text-[#7e8aa2]" />
       </div>
-      <div style={styles.statValue}>{value}</div>
-      <div style={styles.statTitle}>{title}</div>
-      <div style={styles.statSub}>{sub}</div>
+
+      <div className="text-[24px] font-bold text-[#f3f7fc]">{value}</div>
+
+      <div className="text-[13px] text-[#7b879d] mt-2">{title}</div>
+
+      <div className="text-[12px] font-semibold text-green-500 mt-1">{sub}</div>
     </div>
   );
 }
 
 function DepartmentPlacementCard() {
-  const max = 20;
-  const chartH = 240;
-  const yLabels = [20, 15, 10, 5, 0];
-
   return (
-    <div style={{ ...styles.card, ...styles.cardPad }}>
-      <div style={styles.sectionTitle}>Department Placement</div>
-      <div style={{ marginTop: 24, position: "relative", paddingLeft: 36, paddingBottom: 28 }}>
-        {/* Y-axis labels */}
-        <div style={{
-          position: "absolute", left: 0, top: 0, height: chartH,
-          display: "flex", flexDirection: "column", justifyContent: "space-between"
-        }}>
-          {yLabels.map(v => (
-            <span key={v} style={{ fontSize: 12, color: "#6e7b92", lineHeight: 1 }}>{v}</span>
-          ))}
-        </div>
+    <div className="rounded-[18px] card-theme p-5 h-[320px]">
+      <h3 className="text-[16px] font-semibold text-[#edf2f8] mb-6">
+        Department Placement
+      </h3>
 
-        {/* Grid lines */}
-        <div style={{ position: "relative", height: chartH }}>
-          {yLabels.map((_, i) => (
-            <div key={i} style={{
-              position: "absolute", left: 0, right: 0,
-              top: `${(i / (yLabels.length - 1)) * 100}%`,
-              borderTop: "1px dashed #202b3d",
-            }} />
-          ))}
+      <ResponsiveContainer width="100%" height="85%">
+        <BarChart data={departmentData}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#202b3d" />
+          <XAxis dataKey="label" stroke="#74819a" />
+          <YAxis stroke="#74819a" />
+          <Tooltip
+            contentStyle={{
+              background: "#0e1625",
+              border: "1px solid #182233",
+            }}
+          />
 
-          {/* Bars */}
-          <div style={{ display: "flex", alignItems: "flex-end", height: "100%", gap: 12, justifyContent: "space-around" }}>
-            {departmentData.map((item, i) => (
-              <AnimatedDeptBar key={item.label} item={item} max={max} chartH={chartH} delay={i * 60} />
-            ))}
-          </div>
-        </div>
-
-        {/* X-axis labels */}
-        <div style={{ display: "flex", justifyContent: "space-around", marginTop: 10 }}>
-          {departmentData.map(item => (
-            <span key={item.label} style={{ fontSize: 13, color: "#74819a", fontWeight: 500 }}>{item.label}</span>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function AnimatedDeptBar({ item, max, chartH, delay }) {
-  const [h, setH] = useState(0);
-  const target = (item.value / max) * chartH;
-  useEffect(() => {
-    const t = setTimeout(() => setH(target), 150 + delay);
-    return () => clearTimeout(t);
-  }, [target, delay]);
-  return (
-    <div style={{ display: "flex", alignItems: "flex-end", flex: 1, height: "100%" }}>
-      <div style={{
-        width: "100%",
-        height: h,
-        maxWidth: 72,
-        background: GREEN,
-        borderRadius: "6px 6px 0 0",
-        transition: "height 0.7s cubic-bezier(0.4,0,0.2,1)",
-        margin: "0 auto",
-      }} />
+          <Bar dataKey="value" fill="#2ed760" radius={[6, 6, 0, 0]} />
+        </BarChart>
+      </ResponsiveContainer>
     </div>
   );
 }
 
 function PlacementTimelineCard() {
-  const [progress, setProgress] = useState(0);
-  useEffect(() => {
-    const t = setTimeout(() => setProgress(1), 200);
-    return () => clearTimeout(t);
-  }, []);
-
-  const W = 620, H = 220, pX = 40, pY = 20, maxVal = 8;
-  const pts = timelinePoints.map((item, i) => ({
-    ...item,
-    x: pX + (i / (timelinePoints.length - 1)) * (W - pX * 2),
-    y: H - pY - (item.value / maxVal) * (H - pY * 2),
-  }));
-
-  const fullPath = pts.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ");
-  const yLabels = [0, 2, 4, 6, 8];
-
   return (
-    <div style={{ ...styles.card, ...styles.cardPad }}>
-      <div style={styles.sectionTitle}>Placement Timeline</div>
-      <div style={{ marginTop: 24 }}>
-        <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", height: "auto", display: "block" }}>
-          <defs>
-            <clipPath id="lineClip">
-              <rect x={pX} y={0} width={(W - pX * 2) * progress} height={H} />
-            </clipPath>
-          </defs>
+    <div className="rounded-[18px] card-theme p-5 h-[320px]">
+      <h3 className="text-[16px] font-semibold text-[#edf2f8] mb-6">
+        Placement Timeline
+      </h3>
 
-          {/* Grid */}
-          {[0, 1, 2, 3, 4].map(i => (
-            <line key={i} x1={pX} y1={pY + i * ((H - pY * 2) / 4)} x2={W - pX} y2={pY + i * ((H - pY * 2) / 4)} stroke="#202b3d" strokeDasharray="4 5" />
-          ))}
-          {pts.map((p, i) => (
-            <line key={i} x1={p.x} y1={pY} x2={p.x} y2={H - pY} stroke="#202b3d" strokeDasharray="4 5" />
-          ))}
+      <ResponsiveContainer width="100%" height="85%">
+        <LineChart data={timelinePoints}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#202b3d" />
 
-          {/* Baseline */}
-          <line x1={pX} y1={H - pY} x2={W - pX} y2={H - pY} stroke="#495466" strokeWidth={1.5} />
+          <XAxis dataKey="month" stroke="#74819a" />
 
-          {/* Line */}
-          <path d={fullPath} fill="none" stroke={GREEN_DIM} strokeWidth={3}
-            strokeLinecap="round" strokeLinejoin="round" clipPath="url(#lineClip)"
-            style={{ transition: "all 0.05s" }}
+          <YAxis stroke="#74819a" />
+
+          <Tooltip
+            contentStyle={{
+              background: "#0e1625",
+              border: "1px solid #182233",
+            }}
           />
 
-          {/* Dots */}
-          {pts.map((p, i) => (
-            <g key={i}>
-              <circle cx={p.x} cy={p.y} r={10} fill={GREEN_DIM} fillOpacity={0.12} />
-              <circle cx={p.x} cy={p.y} r={6} fill={GREEN_DIM} />
-            </g>
-          ))}
-
-          {/* Y labels */}
-          {yLabels.map(v => {
-            const y = H - pY - (v / maxVal) * (H - pY * 2);
-            return <text key={v} x={10} y={y + 4} fontSize={12} fill="#6e7b92">{v}</text>;
-          })}
-
-          {/* X labels */}
-          {pts.map(p => (
-            <text key={p.month} x={p.x} y={H - 4} textAnchor="middle" fontSize={13} fill="#74819a">{p.month}</text>
-          ))}
-        </svg>
-      </div>
+          <Line
+            type="monotone"
+            dataKey="value"
+            stroke="#2ed760"
+            strokeWidth={3}
+            dot={{ r: 6, fill: "#2ed760" }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
     </div>
   );
 }
 
 function ReportProgressCard({ title, data }) {
   return (
-    <div style={{ ...styles.card, ...styles.cardPad }}>
-      <div style={styles.sectionTitle}>{title}</div>
-      <div style={{ marginTop: 24, display: "flex", flexDirection: "column", gap: 20 }}>
-        {data.map((item, i) => (
-          <ProgressRow key={item.label} label={item.label} value={item.value} max={item.max} index={i} />
+    <div className="rounded-[18px] border border-[#182233] card-theme p-5">
+      <h3 className="text-[16px] font-semibold text-[#edf2f8] mb-6">{title}</h3>
+
+      <div className="flex flex-col gap-5">
+        {data.map((item) => (
+          <ProgressRow
+            key={item.label}
+            label={item.label}
+            value={item.value}
+            max={item.max}
+          />
         ))}
+      </div>
+    </div>
+  );
+}
+
+function ExportReports() {
+  return (
+    <div className="rounded-[18px] border border-[#182233] card-theme p-6 mt-6">
+      
+      <h3 className="text-[16px] font-semibold text-[#edf2f8] mb-5">
+        Export Reports
+      </h3>
+
+      <div className="flex items-center gap-4">
+
+        {/* Excel */}
+        <button className="flex items-center gap-2 px-4 py-2 rounded-[10px] border border-[#243047] card-theme text-[#c9d2e0] text-[13px] hover:bg-[#121c2c] transition">
+          <FileSpreadsheet size={16} />
+          Export Excel
+        </button>
+
+        {/* PDF */}
+        <button className="flex items-center gap-2 px-4 py-2 rounded-[10px] border border-[#243047] card-theme text-[#c9d2e0] text-[13px] hover:bg-[#121c2c] transition">
+          <FileText size={16} />
+          Export PDF
+        </button>
+
+        {/* Main download */}
+        <button className="flex items-center gap-2 px-5 py-2 rounded-[10px] bg-[#2ed760] text-black text-[13px] font-semibold hover:bg-[#26c455] transition">
+          <Download size={16} />
+          Download Placement Report
+        </button>
+
       </div>
     </div>
   );
@@ -322,26 +226,35 @@ function ReportProgressCard({ title, data }) {
 
 export default function Report() {
   return (
-    <div style={styles.root}>
-      {/* Body */}
-      <div style={styles.body}>
-        {/* Stats */}
-        <div style={styles.statsGrid}>
-          {stats.map(item => <StatCard key={item.title} {...item} />)}
-        </div>
+    <div className="min-h-screen bg-theme text-white font-sans p-6">
 
-        {/* Charts row */}
-        <div style={styles.row2}>
-          <DepartmentPlacementCard />
-          <PlacementTimelineCard />
-        </div>
-
-        {/* Progress rows */}
-        <div style={styles.row3}>
-          <ReportProgressCard title="Company Hiring Report" data={companyHiring} />
-          <ReportProgressCard title="Skill Demand" data={skillDemand} />
-        </div>
+      {/* Stats */}
+      <div className="grid grid-cols-6 gap-4 mb-6">
+        {stats.map((item) => (
+          <StatCard key={item.title} {...item} />
+        ))}
       </div>
+
+      {/* Charts */}
+      <div className="grid grid-cols-2 gap-5 mb-5">
+        <DepartmentPlacementCard />
+        <PlacementTimelineCard />
+      </div>
+
+      {/* Reports */}
+      <div className="grid grid-cols-2 gap-5">
+        <ReportProgressCard
+          title="Company Hiring Report"
+          data={companyHiring}
+        />
+
+        <ReportProgressCard
+          title="Skill Demand"
+          data={skillDemand}
+        />
+      </div>
+
+      <ExportReports />
     </div>
   );
 }

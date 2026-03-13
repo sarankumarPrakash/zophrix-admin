@@ -33,43 +33,16 @@ const badgeMap = {
   completed: { bg: "#1e2b3f", color: "#93a4b7", border: "#32445b" },
 };
 
-const BG_PAGE = "#0b1424";
-const BG_CARD = "#101b2d";
-const BG_INNER = "#162338";
-const BORDER = "#22304a";
-
 function InfoBox({ icon: Icon, value, label }) {
   return (
-    <div
-      style={{
-        background: BG_INNER,
-        border: `1px solid ${BORDER}`,
-        borderRadius: 10,
-        padding: "8px 4px 7px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: 4,
-      }}
-    >
-      <Icon size={10} color="#7f8da3" strokeWidth={2} />
-      <span
-        style={{
-          fontSize: 11,
-          fontWeight: 600,
-          color: "#edf2f8",
-          lineHeight: 1,
-        }}
-      >
+    <div className="card-theme  rounded-[10px] py-[7px] px-[4px] flex flex-col items-center gap-1">
+      <Icon size={10} className="text-[#7f8da3]" strokeWidth={2} />
+
+      <span className="text-[11px] font-semibold text-[#edf2f8] leading-none">
         {value}
       </span>
-      <span
-        style={{
-          fontSize: 9,
-          color: "#7b879d",
-          lineHeight: 1,
-        }}
-      >
+
+      <span className="text-[9px] text-[#7b879d] leading-none">
         {label}
       </span>
     </div>
@@ -80,146 +53,90 @@ function DriveCard({ item }) {
   const badge = badgeMap[item.statusType] || badgeMap.completed;
 
   return (
-    <div
-      style={{
-        background: BG_CARD,
-        border: `1px solid ${BORDER}`,
-        borderRadius: 16,
-        padding: "14px 14px 12px",
-        boxShadow: "0 0 0 1px rgba(255,255,255,0.02)",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "flex-start",
-          justifyContent: "space-between",
-          marginBottom: 12,
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
-          <div
-            style={{
-              width: 34,
-              height: 34,
-              borderRadius: 10,
-              background: "#162338",
-              border: "1px solid #22304a",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
-            }}
-          >
-            <BriefcaseBusiness size={14} color="#30d66b" strokeWidth={2.2} />
+    <div className="bg-theme border border-gray-600 rounded-2xl p-[14px] shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+
+      <div className="flex items-start justify-between mb-3">
+
+        <div className="flex items-start gap-2.5">
+
+          <div className="w-[34px] h-[34px] rounded-[10px] bg-theme border border-[#22304a] flex items-center justify-center flex-shrink-0">
+            <BriefcaseBusiness size={14} className="text-green-400" strokeWidth={2.2}/>
           </div>
 
           <div>
-            <div
-              style={{
-                fontSize: 14,
-                fontWeight: 600,
-                color: "#edf2f8",
-                lineHeight: 1,
-              }}
-            >
+            <div className="text-[14px] font-semibold text-[#edf2f8] leading-none">
               {item.company}
             </div>
-            <div
-              style={{
-                fontSize: 10,
-                color: "#7b879d",
-                marginTop: 5,
-              }}
-            >
+
+            <div className="text-[10px] text-[#7b879d] mt-[5px]">
               {item.role}
             </div>
           </div>
+
         </div>
 
         <span
+          className="text-[9px] font-bold rounded-full px-[9px] py-[3px] whitespace-nowrap"
           style={{
             background: badge.bg,
             color: badge.color,
             border: `1px solid ${badge.border}`,
-            borderRadius: 20,
-            padding: "3px 9px",
-            fontSize: 9,
-            fontWeight: 700,
-            whiteSpace: "nowrap",
           }}
         >
           {item.status}
         </span>
+
       </div>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr",
-          gap: 8,
-          marginBottom: 10,
-        }}
-      >
+      <div className="grid grid-cols-3 gap-2 mb-[10px]">
         <InfoBox icon={IndianRupee} value={item.package} label="Package" />
         <InfoBox icon={CalendarDays} value={item.date} label="Drive Date" />
         <InfoBox icon={Users} value={item.eligible} label="Eligible" />
       </div>
 
-      <button
-        style={{
-          width: "100%",
-          height: 32,
-          background: BG_INNER,
-          border: `1px solid ${BORDER}`,
-          borderRadius: 10,
-          color: "#a8b4c3",
-          fontSize: 11,
-          fontWeight: 500,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 6,
-          cursor: "pointer",
-        }}
-      >
-        <Eye size={12} color="#7f8da3" strokeWidth={2.2} />
+      <button className="w-full h-8 bg-theme border border-[#22304a] rounded-[10px] text-[11px] font-medium flex items-center justify-center gap-1.5 hover:bg-[#1b2a44] transition">
+
+        <Eye size={12} className="" strokeWidth={2.2}/>
         View Pipeline
+
       </button>
+
     </div>
   );
 }
 
 function Section({ title, count, dotColor, items, cols = 3 }) {
   return (
-    <div style={{ marginBottom: 24 }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
+    <div className="mb-6">
+
+      <div className="flex items-center gap-2 mb-[14px]">
+
         <span
-          style={{
-            width: 7,
-            height: 7,
-            borderRadius: "50%",
-            background: dotColor,
-            display: "inline-block",
-          }}
+          className="w-[7px] h-[7px] rounded-full"
+          style={{ background: dotColor }}
         />
-        <span style={{ fontSize: 13, fontWeight: 600, color: "#edf2f8" }}>
+
+        <span className="text-[13px] font-semibold text-[#edf2f8]">
           {title}
         </span>
-        <span style={{ fontSize: 12, color: "#7b879d" }}>({count})</span>
+
+        <span className="text-[12px] text-[#7b879d]">
+          ({count})
+        </span>
+
       </div>
 
       <div
+        className="grid gap-4"
         style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(${Math.min(cols, items.length)}, 1fr)`,
-          gap: 16,
+          gridTemplateColumns: `repeat(${Math.min(cols, items.length)},1fr)`
         }}
       >
         {items.map((item) => (
-          <DriveCard key={`${item.company}-${item.role}`} item={item} />
+          <DriveCard key={`${item.company}-${item.role}`} item={item}/>
         ))}
       </div>
+
     </div>
   );
 }
@@ -228,66 +145,27 @@ export default function PlacementPipelineContent() {
   const [selectedFilter, setSelectedFilter] = useState("all");
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: BG_PAGE,
-        fontFamily: "'DM Sans', 'Segoe UI', sans-serif",
-        color: "#fff",
-        padding: "20px 24px",
-      }}
-    >
-      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 22 }}>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-            background: BG_INNER,
-            border: `1px solid ${BORDER}`,
-            borderRadius: 10,
-            padding: "0 12px",
-            height: 36,
-            width: 300,
-          }}
-        >
-          <Search size={13} color="#7b879d" strokeWidth={2} />
+    <div className="min-h-screen bg-theme font-sans text-white px-6 py-5">
+
+      <div className="flex items-center gap-[10px] mb-[22px]">
+
+        <div className="flex items-center gap-2 bg-theme border border-[#22304a] rounded-[10px] px-3 h-9 w-[300px]">
+
+          <Search size={13} className="text-[#7b879d]" />
+
           <input
             placeholder="Search company or role..."
-            style={{
-              background: "transparent",
-              border: "none",
-              outline: "none",
-              color: "#dbe3ed",
-              fontSize: 12,
-              width: "100%",
-            }}
+            className="bg-transparent outline-none text-[#dbe3ed] text-[12px] w-full"
           />
+
         </div>
 
-        <div
-          style={{
-            position: "relative",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
+        <div className="relative flex items-center">
+
           <select
             value={selectedFilter}
             onChange={(e) => setSelectedFilter(e.target.value)}
-            style={{
-              appearance: "none",
-              background: BG_INNER,
-              border: `1px solid ${BORDER}`,
-              borderRadius: 10,
-              padding: "0 38px 0 14px",
-              height: 36,
-              color: "#dbe3ed",
-              fontSize: 12,
-              cursor: "pointer",
-              outline: "none",
-              minWidth: 170,
-            }}
+            className="appearance-none bg-theme border border-[#22304a] rounded-[10px] px-[14px] pr-[38px] h-9 text-[#dbe3ed] text-[12px] min-w-[170px] cursor-pointer outline-none"
           >
             <option value="all">All Status</option>
             <option value="upcoming">Upcoming Drives</option>
@@ -295,18 +173,13 @@ export default function PlacementPipelineContent() {
             <option value="completed">Completed Drives</option>
           </select>
 
-          <div
-            style={{
-              position: "absolute",
-              right: 12,
-              pointerEvents: "none",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <ChevronDown size={13} color="#7f8da3" />
-          </div>
+          <ChevronDown
+            size={13}
+            className="absolute right-3 text-[#7f8da3] pointer-events-none"
+          />
+
         </div>
+
       </div>
 
       {(selectedFilter === "all" || selectedFilter === "upcoming") && (
@@ -338,6 +211,7 @@ export default function PlacementPipelineContent() {
           cols={3}
         />
       )}
+
     </div>
   );
 }
