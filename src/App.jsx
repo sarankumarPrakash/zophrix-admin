@@ -20,6 +20,9 @@ import ViewCompany from "./Components/Pages/Staff/Companies/ViewCompany";
 
 import StaffDashboard from "./Components/Pages/Staff/Dashboard/Dashboard";
 import Students from "./Components/Pages/Staff/Students/Student";
+import Placement from "./Components/Pages/Staff/PlacementPipeline/Placement";
+import Report from "./Components/Pages/Staff/Report/Report";
+
 
 function App() {
   return (
@@ -41,6 +44,8 @@ function App() {
             </ProtectedStaffRoute>
           }
         >
+         <Route path="/staff/report" element={<Report />} />
+          <Route path="/placement-pipeline" element={<Placement />} />
           <Route path="/CompanyList" element={<CompanyList />} />
           <Route path="/new-company" element={<NewCompany />} />
           <Route path="/company-detail" element={<ViewCompany />} />

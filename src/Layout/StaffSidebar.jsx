@@ -5,9 +5,9 @@ import { NavLink as RouterNavLink, useLocation } from "react-router-dom";
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", to: "/hub" },
   { icon: BookUser, label: "Students", to: "/students" },
-  { icon: GitPullRequest, label: "Placement pipeline ", to: "/submissions" },
+  { icon: GitPullRequest, label: "Placement pipeline ", to: "/placement-pipeline" },
   { icon: MonitorSpeaker, label: "Companies", to: "/CompanyList" },
-  { icon: Paperclip, label: "Report", to: "/hackathons" },
+  { icon: Paperclip, label: "Report", to: "/staff/report" },
 ];
 
 const bottomItems = [
@@ -95,4 +95,4 @@ const StaffSidebar = () => {
   );
 };
 
-export default StaffSidebar;
+export default StaffSidebar;  
