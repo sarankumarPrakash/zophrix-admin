@@ -169,16 +169,15 @@ function StudentProfilePage({ student, onBack }) {
   const rank       = Math.round((10 - student.cgpa) * 3 + 2);
 
   const Card = ({ children, className = "" }) => (
-    <div className={`bg-[#111a27] border border-[#1e2d42] rounded-2xl p-4 ${className}`}>
+    <div className={`bg-theme  border border-white/10 rounded-2xl p-4 ${className}`}>
       {children}
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-[#0d1117] text-white font-sans">
+    <div className="min-h-screen bg-theme    text-white font-sans">
       <div className="px-5 pt-4 pb-6">
 
-        {/* Back button */}
         <button
           onClick={onBack}
           className="flex items-center gap-1.5 text-[#8898aa] text-xs mb-4 cursor-pointer bg-transparent border-none p-0"
@@ -186,7 +185,6 @@ function StudentProfilePage({ student, onBack }) {
           <ArrowLeft size={13} /> Back
         </button>
 
-        {/* Profile header card */}
         <Card className="mb-3.5">
           <div className="flex items-center gap-3">
             <div
@@ -202,7 +200,6 @@ function StudentProfilePage({ student, onBack }) {
           </div>
         </Card>
 
-        {/* Stat grid */}
         <div className="grid grid-cols-2 gap-2.5 mb-3.5">
           <Card>
             <div className="flex justify-between items-start">
@@ -239,7 +236,6 @@ function StudentProfilePage({ student, onBack }) {
           </Card>
         </div>
 
-        {/* Row 1: Skill Radar & Challenge Success */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 mb-3.5">
           <Card>
             <div className="flex items-center gap-2 mb-2.5">
@@ -258,7 +254,6 @@ function StudentProfilePage({ student, onBack }) {
           </Card>
         </div>
 
-        {/* Row 2: Weekly Activity & Skill Breakdown */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
           <Card>
             <div className="flex items-center gap-2 mb-2.5">
@@ -293,7 +288,6 @@ function StudentProfilePage({ student, onBack }) {
   );
 }
 
-// ─── existing Students component (unchanged) + routing state ─────────────────
 export default function Students() {
   const [search,       setSearch]       = useState("");
   const [selectedDept, setSelectedDept] = useState("");
