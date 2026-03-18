@@ -1,18 +1,18 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
-function ProtectedRoutes({ children }) {
+function ProtectedRoutes({ children, allowedRoles }) {
+  const isAuthenticated = sessionStorage.getItem("access_token"); 
+  const userRole = sessionStorage.getItem("role");
 
-  const isAuthenticated = sessionStorage.getItem("token"); 
-
-  console.log( sessionStorage.getItem("token"));
-  
-  // or use any global auth state
-
-  console.log(isAuthenticated,'-------------------')
-
+  // Login pannala na login page-ku poga sollu
   if (!isAuthenticated) {
-    return <Navigate to="/signup" replace />;
+    return <Navigate to="/" replace />;
+  }
+
+  // Allowed roles-la user role illai na login-ke thiruppi anuppu
+  if (allowedRoles && !allowedRoles.includes(userRole)) {
+    return <Navigate to="/" replace />;
   }
 
   return children;

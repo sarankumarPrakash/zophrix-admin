@@ -9,8 +9,7 @@ import StudentLayout from "./Layout/StudentLayout";
 import StaffLayout from "./Layout/StaffLayout";
 import PublicLayout from "./Layout/PublicLayout";
 
-import ProtectedStudentRoute from "./Routes/protectedStudentRoute";
-import ProtectedStaffRoute from "./Routes/ProtectedStaffRoutes";
+import ProtectedRoutes from "./Routes/ProtectedRoutes";
 
 import GlobalSnackbar from "./Components/Global/Globalsnackbar";
 
@@ -23,6 +22,8 @@ import Students from "./Components/Pages/Staff/Students/Student";
 import Placement from "./Components/Pages/Staff/PlacementPipeline/Placement";
 import Report from "./Components/Pages/Staff/Report/Report";
 
+// CORRECT IMPORT PATH BASED ON YOUR IMAGE
+import AdminDashboard from "./pages/Admin/AdminDashboard";
 
 function App() {
   return (
@@ -39,19 +40,29 @@ function App() {
         {/* STAFF ROUTES */}
         <Route
           element={
-            <ProtectedStaffRoute>
+            <ProtectedRoutes allowedRoles={["staff"]}>
               <StaffLayout />
-            </ProtectedStaffRoute>
+            </ProtectedRoutes>
           }
         >
-         <Route path="/staff/report" element={<Report />} />
+          <Route path="/staff/report" element={<Report />} />
           <Route path="/placement-pipeline" element={<Placement />} />
           <Route path="/CompanyList" element={<CompanyList />} />
           <Route path="/new-company" element={<NewCompany />} />
           <Route path="/company-detail" element={<ViewCompany />} />
           <Route path="/hub" element={<StaffDashboard />} />
           <Route path="/students" element={<Students />} />
-        
+        </Route>
+
+        {/* ADMIN ROUTES */}
+        <Route
+          element={
+            <ProtectedRoutes allowedRoles={["admin"]}>
+              <StaffLayout /> 
+            </ProtectedRoutes>
+          }
+        >
+          <Route path="/admin-hub" element={<AdminDashboard />} />
         </Route>
 
         <Route path="*" element={<Notfound />} />
